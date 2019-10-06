@@ -11,7 +11,7 @@ var encodeAfterRecord = true;       // when to encode
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioContext; //new audio context to help us record
 
-var encodingTypeSelect = document.getElementById("encodingTypeSelect");
+//var encodingTypeSelect = document.getElementById("encodingTypeSelect");
 var recordButton = document.getElementById("recordButton");
 var stopButton = document.getElementById("stopButton");
 
@@ -46,7 +46,7 @@ function startRecording() {
 		audioContext = new AudioContext();
 
 		//update the format 
-		document.getElementById("formats").innerHTML="Format: 2 channel "+encodingTypeSelect.options[encodingTypeSelect.selectedIndex].value+" @ "+audioContext.sampleRate/1000+"kHz"
+		//document.getElementById("formats").innerHTML="Format: 2 channel "+encodingTypeSelect.options[encodingTypeSelect.selectedIndex].value+" @ "+audioContext.sampleRate/1000+"kHz"
 
 		//assign to gumStream for later use
 		gumStream = stream;
@@ -58,14 +58,14 @@ function startRecording() {
 		//input.connect(audioContext.destination)
 
 		//get the encoding 
-		encodingType = encodingTypeSelect.options[encodingTypeSelect.selectedIndex].value;
+		// encodingType = encodingTypeSelect.options[encodingTypeSelect.selectedIndex].value;
 		
 		//disable the encoding selector
-		encodingTypeSelect.disabled = true;
+	//	encodingTypeSelect.disabled = true;
 
 		recorder = new WebAudioRecorder(input, {
 		  workerDir: "js/", // must end with slash
-		  encoding: encodingType,
+		  encoding: "mp3",
 		  numChannels:2, //2 is the default, mp3 encoding supports only 2
 		  onEncoderLoading: function(recorder, encoding) {
 		    // show "loading encoder..." display
@@ -80,7 +80,7 @@ function startRecording() {
 		recorder.onComplete = function(recorder, blob) { 
 			__log("Encoding complete");
 			createDownloadLink(blob,recorder.encoding);
-			encodingTypeSelect.disabled = false;
+			//encodingTypeSelect.disabled = false;
 		}
 
 		recorder.setOptions({
