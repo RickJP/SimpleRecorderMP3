@@ -35,7 +35,7 @@ function startRecording() {
 	*/
 
 	navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-		__log("getUserMedia() success, stream created, initializing WebAudioRecorder...");
+		//__log("getUserMedia() success, stream created, initializing WebAudioRecorder...");
 
 		/*
 			create an audio context after getUserMedia is called
@@ -58,10 +58,10 @@ function startRecording() {
 		//input.connect(audioContext.destination)
 
 		//get the encoding 
-		// encodingType = encodingTypeSelect.options[encodingTypeSelect.selectedIndex].value;
+		//encodingType = encodingTypeSelect.options[encodingTypeSelect.selectedIndex].value;
 		
 		//disable the encoding selector
-	//	encodingTypeSelect.disabled = true;
+		//encodingTypeSelect.disabled = true;
 
 		recorder = new WebAudioRecorder(input, {
 		  workerDir: "js/", // must end with slash
@@ -69,16 +69,16 @@ function startRecording() {
 		  numChannels:2, //2 is the default, mp3 encoding supports only 2
 		  onEncoderLoading: function(recorder, encoding) {
 		    // show "loading encoder..." display
-		    __log("Loading "+encoding+" encoder...");
+		    //__log("Loading "+encoding+" encoder...");
 		  },
 		  onEncoderLoaded: function(recorder, encoding) {
 		    // hide "loading encoder..." display
-		    __log(encoding+" encoder loaded");
+		    //__log(encoding+" encoder loaded");
 		  }
 		});
 
 		recorder.onComplete = function(recorder, blob) { 
-			__log("Encoding complete");
+			//__log("Encoding complete");
 			createDownloadLink(blob,recorder.encoding);
 			//encodingTypeSelect.disabled = false;
 		}
@@ -86,14 +86,14 @@ function startRecording() {
 		recorder.setOptions({
 		  timeLimit:120,
 		  encodeAfterRecord:encodeAfterRecord,
-	      ogg: {quality: 0.5},
+	      //ogg: {quality: 0.5},
 	      mp3: {bitRate: 160}
 	    });
 
 		//start the recording process
 		recorder.startRecording();
 
-		 __log("Recording started");
+		 //__log("Recording started");
 
 	}).catch(function(err) {
 	  	//enable the record button if getUSerMedia() fails
@@ -108,7 +108,7 @@ function startRecording() {
 }
 
 function stopRecording() {
-	console.log("stopRecording() called");
+	//console.log("stopRecording() called");
 	
 	//stop microphone access
 	gumStream.getAudioTracks()[0].stop();
@@ -120,11 +120,11 @@ function stopRecording() {
 	//tell the recorder to finish the recording (stop recording + encode the recorded audio)
 	recorder.finishRecording();
 
-	__log('Recording stopped');
+	//__log('Recording stopped');
 }
 
 function createDownloadLink(blob,encoding) {
-	
+	console.log('Create DL Link');
 	var url = URL.createObjectURL(blob);
 	var au = document.createElement('audio');
 	var li = document.createElement('li');
@@ -144,7 +144,7 @@ function createDownloadLink(blob,encoding) {
 	li.appendChild(link);
 
 	//add the li element to the ordered list
-	recordingsList.appendChild(li);
+	//recordingsList.appendChild(li);
 }
 
 
