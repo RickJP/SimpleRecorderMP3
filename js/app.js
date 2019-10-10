@@ -129,7 +129,7 @@ function createDownloadLink(blob,encoding) {
 	var au = document.createElement('audio');
 	var li = document.createElement('li');
 	var link = document.createElement('a');
-
+ 
 	//add controls to the <audio> element
 	au.controls = true;
 	au.src = url;
